@@ -8,11 +8,9 @@ import Keyboard from './components/game/Keyboard';
 import GameCounter from './components/game/GameCounter';
 import ProgressBar from './components/game/ProgressBar';
 import { Toaster } from './components/ui/toaster';
-import ResultModal from './components/modals/ResultModal';
-import { useState } from 'react';
+
 
 const App: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(true)
   return (
     <Provider
       enableSystem={false}

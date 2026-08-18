@@ -147,7 +147,17 @@ export const CryptoProvider: React.FC<{ children?: ReactNode }> = ({
       }
     }
     return true
-  }, [decryptionMapping, ecryptionMapping, selectedLetter, candidateDecryptionLetter, trials, nrFailedTrials, nrCompletedLetters])
+  }, [decryptionMapping, 
+      ecryptionMapping, 
+      selectedLetter, 
+      candidateDecryptionLetter, 
+      trials, 
+      nrFailedTrials, 
+      nrCompletedLetters,
+      setDecryptionMapping, 
+      setEcryptionMapping, setNrCompletedLetters, 
+      setNrFailedTrials, 
+      setTrials])
 
   const clearMistakenLetter = useCallback(() => setMistakenLetter(undefined), [])
 

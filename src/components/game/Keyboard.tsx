@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import KeyboardKey from "./KeyboardKey";
 import { LuDelete } from "react-icons/lu";
 import useCrypto from "../../hooks/useCrypto";
@@ -11,18 +11,15 @@ const FIRST_ROW = "qwertyuiop"
 const SECOND_ROW = "asdfghjkl"
 const THIRD_ROW = "zxcvbnm"
 
-interface KeyboardProps {
-
-}
 
 const GAP = "0.5vw"
-const Keyboard: React.FC<KeyboardProps> = () => {
+const Keyboard: React.FC = () => {
 
   const { trials, decryptedLetters, selectedLetter, tryDecrypt, setCandidateDecryptionLetter } = useCrypto()
 
   const onDelete = useCallback(() => {
     setCandidateDecryptionLetter(undefined)
-  }, [])
+  }, [setCandidateDecryptionLetter])
 
   const LetterKey: React.FC<{ keyboardKey: string, index: number }> = useCallback(({ keyboardKey, index }) => (
     <KeyboardKey
@@ -39,7 +36,7 @@ const Keyboard: React.FC<KeyboardProps> = () => {
     >
       {keyboardKey}
     </KeyboardKey>
-  ), [decryptedLetters, selectedLetter, trials])
+  ), [decryptedLetters, selectedLetter, trials, setCandidateDecryptionLetter])
 
   return (
     <Flex

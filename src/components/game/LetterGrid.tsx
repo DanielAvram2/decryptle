@@ -7,11 +7,9 @@ import useCrypto from "../../hooks/useCrypto";
 import { useMemo } from "react";
 
 
-interface LetterGridProps {
-  
-}
+
  
-const LetterGrid: React.FC<LetterGridProps> = () => {
+const LetterGrid: React.FC = () => {
   const { decryptionMapping, cypherText } = useCrypto()
   const longestWordLength = useMemo(() => {
     return cypherText.split(" ").sort( (a, b) => b.length - a.length)[0].length

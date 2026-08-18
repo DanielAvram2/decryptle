@@ -1,14 +1,12 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import useCrypto from "../../hooks/useCrypto";
 import CharBox from "./CharBox";
 import { BoxColors } from "../../utils/constants";
 import { LuArrowRight } from "react-icons/lu";
 
-interface MappingDisplayProps {
-  
-}
+
  
-const MappingDisplay: React.FC<MappingDisplayProps> = () => {
+const MappingDisplay: React.FC = () => {
   const { candidateDecryptionLetter, selectedLetter, decryptionMapping } = useCrypto()
 
   return (

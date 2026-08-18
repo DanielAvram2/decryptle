@@ -3,12 +3,9 @@ import useCrypto from "../../hooks/useCrypto";
 import { Box, Flex } from "@chakra-ui/react";
 import { BoxColors } from "../../utils/constants";
 
-interface ProgressBarProps {
-
-}
 
 
-const ProgressBar: React.FC<ProgressBarProps> = () => {
+const ProgressBar: React.FC = () => {
   const { nrLetters, nrCompletedLetters } = useCrypto();
   console.log(nrLetters, nrCompletedLetters)
 

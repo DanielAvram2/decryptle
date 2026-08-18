@@ -1,7 +1,7 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import type { Letter } from "../../utils/types";
 import useCrypto from "../../hooks/useCrypto";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo } from "react";
 import { BoxColors } from "../../utils/constants";
 
 interface LetterBoxProps {
@@ -19,11 +19,11 @@ const LetterBox: React.FC<LetterBoxProps> = ({
 }) => {
   const { 
     selectedLetter, setSelectedLetter, setCandidateDecryptionLetter, 
-    candidateDecryptionLetter, ecryptionMapping, decryptionMapping, mistakenLetter, clearMistakenLetter 
+    ecryptionMapping, decryptionMapping, mistakenLetter, clearMistakenLetter 
   } = useCrypto()
 
-  const isSelected = useMemo(() => selectedLetter == letter, [selectedLetter])
-  const displayLetter = useMemo(() => isEncrypted ? letter : decryptionMapping[letter]!, [isEncrypted, decryptionMapping])
+  const isSelected = useMemo(() => selectedLetter == letter, [selectedLetter, letter])
+  const displayLetter = useMemo(() => isEncrypted ? letter : decryptionMapping[letter]!, [isEncrypted, decryptionMapping, letter])
   
   const selectLetter = useCallback(() => {
     if (!isEncrypted) {
@@ -38,7 +38,11 @@ const LetterBox: React.FC<LetterBoxProps> = ({
       setSelectedLetter(letter)
     }
     setCandidateDecryptionLetter(undefined)
-  }, [selectedLetter, candidateDecryptionLetter, ecryptionMapping])
+  }, [
+    selectedLetter, 
+    ecryptionMapping,
+    displayLetter, isEncrypted, letter, setCandidateDecryptionLetter, setSelectedLetter
+  ])
 
   return (
     <Box

@@ -1,13 +1,10 @@
 import { Text } from "@chakra-ui/react";
 import useCrypto from "../../hooks/useCrypto";
 
-interface GameCounterProps {
-  
-}
 
 const MAX_GUESSES = 10
  
-const GameCounter: React.FC<GameCounterProps> = () => {
+const GameCounter: React.FC = () => {
   const {nrFailedTrials} = useCrypto();
   return (	
     <Text>
