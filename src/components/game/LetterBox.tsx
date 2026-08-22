@@ -27,7 +27,6 @@ const LetterBox: React.FC<LetterBoxProps> = ({
   
   const selectLetter = useCallback(() => {
     if (!isEncrypted) {
-      console.log(ecryptionMapping)
       setSelectedLetter(letter)
       setCandidateDecryptionLetter(displayLetter)
       return

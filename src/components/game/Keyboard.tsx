@@ -50,14 +50,22 @@ const Keyboard: React.FC = () => {
         gap={GAP}
       >
         {FIRST_ROW.split("").map((keyaboardKey, index) => (
-          <LetterKey keyboardKey={keyaboardKey} index={index} />
+          <LetterKey
+            key={`first-row-${index}`}
+            keyboardKey={keyaboardKey} 
+            index={index} 
+          />
         ))}
       </Flex>
       <Flex
         gap={GAP}
       >
         {SECOND_ROW.split("").map((keyaboardKey, index) => (
-          <LetterKey keyboardKey={keyaboardKey} index={index} />
+          <LetterKey
+            key={`second-row-${index}`}
+            keyboardKey={keyaboardKey} 
+            index={index} 
+          />
 
         ))}
       </Flex>
@@ -74,7 +82,11 @@ const Keyboard: React.FC = () => {
             <HiMiniArrowTurnDownLeft />
         </KeyboardKey>
         {THIRD_ROW.split("").map((keyaboardKey, index) => (
-          <LetterKey keyboardKey={keyaboardKey} index={index} />
+          <LetterKey 
+            key={`third-row-${index}`}
+            keyboardKey={keyaboardKey} 
+            index={index} 
+          />
 
         ))}
         <KeyboardKey

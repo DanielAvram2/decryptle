@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react"
+import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react"
 import type { Letter } from "../utils/types"
 import { isLetter } from "../utils/helperFunctions"
 import { toaster } from "../components/ui/toaster"
@@ -79,7 +79,6 @@ export const CryptoProvider: React.FC<{ children?: ReactNode }> = ({
   const nrLetters = useMemo(() => {
     const letterChars = cypherText.split("").filter(char => isLetter(char)).map(char => char.toLowerCase())
     const letterCharsSet = new Set(letterChars)
-    console.log(letterChars)
     return letterCharsSet.size
   }, [cypherText])
 
@@ -90,11 +89,6 @@ export const CryptoProvider: React.FC<{ children?: ReactNode }> = ({
     }
     return letterSet
   }, [decryptionMapping])
-
-
-  useEffect(() => {
-    console.log("trials", trials)
-  }, [trials])
 
   const tryDecrypt = useCallback(() => {
     if (selectedLetter === undefined || candidateDecryptionLetter === undefined) {
@@ -133,7 +127,6 @@ export const CryptoProvider: React.FC<{ children?: ReactNode }> = ({
         const newTrials: Partial<Record<Letter, Letter[]>> = {}
         for (const key in trials) {
           newTrials[key as Letter] = [...(trials[key as Letter] ?? [])]
-          console.log(newTrials[key as Letter])
         }
         if (newTrials[selectedLetter] === undefined) {
           newTrials[selectedLetter] = [candidateDecryptionLetter]

@@ -8,6 +8,9 @@ import Keyboard from './components/game/Keyboard';
 import GameCounter from './components/game/GameCounter';
 import ProgressBar from './components/game/ProgressBar';
 import { Toaster } from './components/ui/toaster';
+import useIsMobileView, { IsMobileViewProvider } from './hooks/useIsMobileView';
+import { useMemo } from 'react';
+import GameLayout from './components/layout/GameLayout';
 
 
 const App: React.FC = () => {
@@ -15,38 +18,14 @@ const App: React.FC = () => {
     <Provider
       enableSystem={false}
     >
-      <CryptoProvider>
-        <Flex
-          direction="column"
-          justifyContent="space-between"
-          alignItems="center"
-          minH="100svh" // svh instead of vh so we don't take into measurement the search bar on phone
-        >
-          <Flex
-            direction="column"
-            gap="2rem"
-            alignItems="center"
-            justifyContent="center"
-            flexGrow="1"
-          >
+      <IsMobileViewProvider>
 
-            <ProgressBar />
-            <LetterGrid />
-          </Flex>
-          <Flex
-            direction="column"
-            gap="1rem"
-            alignItems="center"
-          >
-            <GameCounter />
-            <MappingDisplay />
-            <Keyboard />
-          </Flex>
-        </Flex>
-
-      </CryptoProvider>
-      <Toaster />
-      {/* <ResultModal onClose={() => setIsOpen(false)} isOpen={isOpen}/> */}
+        <CryptoProvider>
+          <GameLayout />
+        </CryptoProvider>
+        <Toaster />
+        {/* <ResultModal onClose={() => setIsOpen(false)} isOpen={isOpen}/> */}
+      </IsMobileViewProvider>
     </Provider>
   );
 }
