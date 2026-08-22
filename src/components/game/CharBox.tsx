@@ -13,7 +13,7 @@ const CharBox: React.FC<CharBoxProps> = ({
   char,
   size = '2rem',
   color = BoxColors.miscChar,
-  fontSize = size,
+  fontSize = `calc(${size} * 0.5)`,
   isEncrypted = false
 }) => {
   return (<Flex
@@ -28,7 +28,7 @@ const CharBox: React.FC<CharBoxProps> = ({
     backgroundColor={color}
   >
     <Text
-      fontSize={`calc(${fontSize} * 0.8)`}
+      fontSize={fontSize}
       fontFamily={isEncrypted ? (
         `'block-blueprint', block-blueprint`
       ) : (

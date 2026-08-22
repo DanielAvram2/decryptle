@@ -18,7 +18,6 @@ const GameLayout: React.FC = () => {
       "80%"
     )
   ), [isMobileView])
-  console.log(isMobileView)
 
   return (	
     <Flex

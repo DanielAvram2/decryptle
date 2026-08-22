@@ -8,14 +8,16 @@ interface LetterBoxProps {
   letter: Letter,
   isEncrypted?: boolean,
   isUpperCase?: boolean,
-  size?: string
+  size?: string,
+  fontSize?: string
 }
 
 const LetterBox: React.FC<LetterBoxProps> = ({
   letter,
   isEncrypted = true,
   isUpperCase = false,
-  size = "2rem"
+  size = "2rem",
+  fontSize = `calc(${size} * 0.5)`,
 }) => {
   const { 
     selectedLetter, setSelectedLetter, setCandidateDecryptionLetter, 
@@ -93,7 +95,7 @@ const LetterBox: React.FC<LetterBoxProps> = ({
         >
           <Text
             fontFamily={`'courier', courier`}
-            fontSize={isEncrypted ? "1.5rem" : "1.5rem"}
+            fontSize={fontSize}
             fontWeight={isSelected ? "bold" : "normal"}
             color={isSelected ? "yellow" : "black"}
           >

@@ -1,36 +1,37 @@
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react"
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react"
 import type { Letter } from "../utils/types"
 import { isLetter } from "../utils/helperFunctions"
 import { toaster } from "../components/ui/toaster"
 import usePersistingState from "./usePersistingState"
+import useKeyPress from "./useKeyPress"
 
 const GROUND_TRUTH_DECRYPTION: Partial<Record<Letter, Letter>> = {
-'b' : 'a',
-'z' : 'b',
-'m' : 'c',
-'v' : 'd',
-'p' : 'e',
-'x' : 'f',
-'j' : 'g',
-'u' : 'h',
-'d' : 'i',
-'o' : 'j',
-'s' : 'k',
-'w' : 'l',
-'i' : 'm',
-'y' : 'n',
-'f' : 'o',
-'g' : 'p',
-'t' : 'q',
-'l' : 'r',
-'n' : 's',
-'h' : 't',
-'a' : 'u',
-'e' : 'v',
-'r' : 'w',
-'q' : 'x',
-'c' : 'y',
-'k' : 'z',
+  'b': 'a',
+  'z': 'b',
+  'm': 'c',
+  'v': 'd',
+  'p': 'e',
+  'x': 'f',
+  'j': 'g',
+  'u': 'h',
+  'd': 'i',
+  'o': 'j',
+  's': 'k',
+  'w': 'l',
+  'i': 'm',
+  'y': 'n',
+  'f': 'o',
+  'g': 'p',
+  't': 'q',
+  'l': 'r',
+  'n': 's',
+  'h': 't',
+  'a': 'u',
+  'e': 'v',
+  'r': 'w',
+  'q': 'x',
+  'c': 'y',
+  'k': 'z',
 }
 
 const TEXT = "Maldfndhc sdwwpv hup mbh, zah nbhdnxbmhdfy zlfajuh dh zbms."
@@ -76,6 +77,8 @@ export const CryptoProvider: React.FC<{ children?: ReactNode }> = ({
   const [nrCompletedLetters, setNrCompletedLetters] = usePersistingState<number>("nrCompletedLetters", 0)
   const [trials, setTrials] = usePersistingState<Partial<Record<Letter, Letter[]>>>("trials", {})
 
+  const { pressedKey, resetPressedKey } = useKeyPress()
+
   const nrLetters = useMemo(() => {
     const letterChars = cypherText.split("").filter(char => isLetter(char)).map(char => char.toLowerCase())
     const letterCharsSet = new Set(letterChars)
@@ -95,7 +98,7 @@ export const CryptoProvider: React.FC<{ children?: ReactNode }> = ({
       return false
     }
 
-    if (trials[selectedLetter]?.includes(candidateDecryptionLetter) ) {
+    if (trials[selectedLetter]?.includes(candidateDecryptionLetter)) {
       toaster.create({
         description: `${selectedLetter} -> ${candidateDecryptionLetter} already guessed`,
         type: "info",
@@ -140,19 +143,34 @@ export const CryptoProvider: React.FC<{ children?: ReactNode }> = ({
       }
     }
     return true
-  }, [decryptionMapping, 
-      ecryptionMapping, 
-      selectedLetter, 
-      candidateDecryptionLetter, 
-      trials, 
-      nrFailedTrials, 
-      nrCompletedLetters,
-      setDecryptionMapping, 
-      setEcryptionMapping, setNrCompletedLetters, 
-      setNrFailedTrials, 
-      setTrials])
+  }, [decryptionMapping,
+    ecryptionMapping,
+    selectedLetter,
+    candidateDecryptionLetter,
+    trials,
+    nrFailedTrials,
+    nrCompletedLetters,
+    setDecryptionMapping,
+    setEcryptionMapping, setNrCompletedLetters,
+    setNrFailedTrials,
+    setTrials])
 
   const clearMistakenLetter = useCallback(() => setMistakenLetter(undefined), [])
+
+
+    useEffect(() => {
+    if (pressedKey && isLetter(pressedKey)) {
+      setCandidateDecryptionLetter(pressedKey as Letter)
+    }
+    if (pressedKey === 'Escape') {
+      setCandidateDecryptionLetter(undefined)
+    }
+    if (pressedKey === "Enter") {
+      queueMicrotask(() => tryDecrypt())
+    }
+    resetPressedKey()
+
+  }, [pressedKey, setCandidateDecryptionLetter, tryDecrypt])
 
   return (
     <CryptoContext.Provider
