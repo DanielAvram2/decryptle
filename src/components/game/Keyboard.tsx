@@ -2,12 +2,10 @@ import { Flex } from "@chakra-ui/react";
 import KeyboardKey from "./KeyboardKey";
 import { LuDelete } from "react-icons/lu";
 import useCrypto from "../../hooks/useCrypto";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import type { Letter } from "../../utils/types";
 import { BoxColors } from "../../utils/constants";
 import { HiMiniArrowTurnDownLeft } from "react-icons/hi2";
-import useKeyPress from "../../hooks/useKeyPress";
-import { isLetter } from "../../utils/helperFunctions";
 
 const FIRST_ROW = "qwertyuiop"
 const SECOND_ROW = "asdfghjkl"
