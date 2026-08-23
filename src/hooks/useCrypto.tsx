@@ -6,32 +6,32 @@ import usePersistingState from "./usePersistingState"
 import useKeyPress from "./useKeyPress"
 
 const GROUND_TRUTH_DECRYPTION: Partial<Record<Letter, Letter>> = {
-'v' : 'a',
-'f' : 'b',
-'z' : 'c',
-'i' : 'd',
-'y' : 'e',
-'e' : 'f',
-'n' : 'g',
-'m' : 'h',
-'l' : 'i',
-'p' : 'j',
-'a' : 'k',
-'s' : 'l',
-'u' : 'm',
-'b' : 'n',
-'x' : 'o',
-'q' : 'p',
-'c' : 'q',
-'w' : 'r',
-'j' : 's',
-'o' : 't',
-'d' : 'u',
-'g' : 'v',
-'r' : 'w',
-'h' : 'x',
-'k' : 'y',
-'t' : 'z',
+  'v': 'a',
+  'f': 'b',
+  'z': 'c',
+  'i': 'd',
+  'y': 'e',
+  'e': 'f',
+  'n': 'g',
+  'm': 'h',
+  'l': 'i',
+  'p': 'j',
+  'a': 'k',
+  's': 'l',
+  'u': 'm',
+  'b': 'n',
+  'x': 'o',
+  'q': 'p',
+  'c': 'q',
+  'w': 'r',
+  'j': 's',
+  'o': 't',
+  'd': 'u',
+  'g': 'v',
+  'r': 'w',
+  'h': 'x',
+  'k': 'y',
+  't': 'z',
 }
 
 const TEXT = "Le uk vbjrywj ewlnmoyb kxd, omyb kxd jmxdsi zyvjy vjalbn jzvwk cdyjolxbj."
@@ -158,7 +158,7 @@ export const CryptoProvider: React.FC<{ children?: ReactNode }> = ({
   const clearMistakenLetter = useCallback(() => setMistakenLetter(undefined), [])
 
 
-    useEffect(() => {
+  useEffect(() => {
     if (pressedKey && isLetter(pressedKey)) {
       setCandidateDecryptionLetter(pressedKey as Letter)
     }

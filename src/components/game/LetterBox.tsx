@@ -1,15 +1,17 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import type { Letter } from "../../utils/types";
 import useCrypto from "../../hooks/useCrypto";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { BoxColors } from "../../utils/constants";
+import useGameMechanics from "../../hooks/useGameMechanics";
 
 interface LetterBoxProps {
   letter: Letter,
   isEncrypted?: boolean,
   isUpperCase?: boolean,
   size?: string,
-  fontSize?: string
+  fontSize?: string,
+  position?: number
 }
 
 const LetterBox: React.FC<LetterBoxProps> = ({
@@ -18,31 +20,34 @@ const LetterBox: React.FC<LetterBoxProps> = ({
   isUpperCase = false,
   size = "2rem",
   fontSize = `calc(${size} * 0.5)`,
+  position = -1
 }) => {
   const { 
     selectedLetter, setSelectedLetter, setCandidateDecryptionLetter, 
     ecryptionMapping, decryptionMapping, mistakenLetter, clearMistakenLetter 
   } = useCrypto()
+  const { selectedPosition, setSelectedPosition } = useGameMechanics()
 
   const isSelected = useMemo(() => selectedLetter == letter, [selectedLetter, letter])
   const displayLetter = useMemo(() => isEncrypted ? letter : decryptionMapping[letter]!, [isEncrypted, decryptionMapping, letter])
-  
-  const selectLetter = useCallback(() => {
-    if (!isEncrypted) {
+  const isPosSelected = useMemo(() => position === selectedPosition, [selectedPosition, position])
+  useEffect(() => {
+    if (isPosSelected) {
       setSelectedLetter(letter)
+    }
+  }, [isPosSelected])
+
+  const selectLetter = useCallback(() => {
+    setSelectedPosition(position)
+    if (!isEncrypted) {
       setCandidateDecryptionLetter(displayLetter)
       return
-    }
-    if (letter === selectedLetter) {
-      setSelectedLetter(undefined)
-    } else {
-      setSelectedLetter(letter)
     }
     setCandidateDecryptionLetter(undefined)
   }, [
     selectedLetter, 
     ecryptionMapping,
-    displayLetter, isEncrypted, letter, setCandidateDecryptionLetter, setSelectedLetter
+    displayLetter, isEncrypted, letter, setCandidateDecryptionLetter, setSelectedLetter, setSelectedPosition, position
   ])
 
   return (
@@ -52,6 +57,7 @@ const LetterBox: React.FC<LetterBoxProps> = ({
       minHeight={size}
       maxWidth={size}
       maxHeight={size}
+      
     >
       <Box
         className="flip-card-inner"
@@ -68,13 +74,14 @@ const LetterBox: React.FC<LetterBoxProps> = ({
           marginTop='0.5rem'
           backgroundColor={BoxColors.encryptedLetter}
           onClick={selectLetter}
-          className={mistakenLetter === letter ? "horizontal-shake" :"flip-card-front" }
+          className={
+            `${isPosSelected ? "outer-glow" : ""} ${mistakenLetter === letter ? "horizontal-shake" :"flip-card-front"}` }
           onAnimationEnd={clearMistakenLetter}
         >
           <Text
             fontFamily={`'block-blueprint', block-blueprint`}
             fontSize={isEncrypted ? "1.5rem" : "1.5rem"}
-            fontWeight={isSelected ? "bold" : "nomral"}
+            fontWeight={isSelected ? "bold" : "normal"}
             color={isSelected || !isEncrypted ? "yellow" : "black"}
           >
             {isUpperCase ? letter.toUpperCase() : letter}
@@ -91,7 +98,7 @@ const LetterBox: React.FC<LetterBoxProps> = ({
           marginTop='0.5rem'
           backgroundColor={BoxColors.decryptedLetter}
           onClick={selectLetter}
-          className="flip-card-back"
+          className={`${isPosSelected ? "outer-glow" : ""} flip-card-back`}
         >
           <Text
             fontFamily={`'courier', courier`}

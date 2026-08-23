@@ -4,15 +4,32 @@ import LetterBox from "./LetterBox";
 import type { Letter } from "../../utils/types";
 import CharBox from "./CharBox";
 import useCrypto from "../../hooks/useCrypto";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import useIsMobileView from "../../hooks/useIsMobileView";
-
 
 
 
 const LetterGrid: React.FC = () => {
   const { decryptionMapping, cypherText } = useCrypto()
   const isMobileView = useIsMobileView()
+  const getLetterPos = useCallback((wordIndex: number, charIndex: number) => {
+    let wordCnt = 0
+    let charCnt = -1
+    for (let i = 0; i < cypherText.length; i++) {
+      const currChar = cypherText[i]
+      if (currChar === " ") {
+        wordCnt++
+        charCnt = -1
+      } else {
+        charCnt++
+      }
+      if (wordCnt === wordIndex && charIndex === charCnt) {
+        return i
+      }
+    }
+
+  }, [cypherText])
+
   const longestWordLength = useMemo(() => {
     return cypherText.split(" ").sort((a, b) => b.length - a.length)[0].length
   }, [cypherText])
@@ -20,7 +37,7 @@ const LetterGrid: React.FC = () => {
     isMobileView ?
       `${Math.floor(100 / longestWordLength) - 2}svw`
     :
-      `${Math.floor(70 / longestWordLength) - 2}vw`
+      `${Math.floor(60 / longestWordLength) - 2}vw`
   ), [longestWordLength, isMobileView])
   return (
     <Flex
@@ -50,7 +67,8 @@ const LetterGrid: React.FC = () => {
                     letter={letter}
                     isUpperCase={isUpperCase(character)}
                     isEncrypted={isEncrypted}
-                    size={boxSize}
+                    size={boxSize}  
+                    position={getLetterPos(wordIndex, characterIndex)}                  
                   />
                 )
 

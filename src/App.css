@@ -238,3 +238,9 @@
 .horizontal-shake {
   animation: horizontal-shaking 0.35s ;
 }
+
+.outer-glow{
+    outline: none;
+    border-color: yellow;
+    box-shadow: 0 0 15px yellow;
+}

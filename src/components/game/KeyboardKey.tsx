@@ -23,15 +23,15 @@ const KeyboardKey: React.FC<KeyboardKeyProps> = ({
     isMobileView ? (
       isBig ? `${BASE_W * 14 / 9}vw` : `${BASE_W }vw`
     ) : (
-      isBig ? `${BASE_W * 7 / 9}rem` : `${BASE_W / 2}rem`
+      isBig ? `${BASE_W * 7 / 18}rem` : `${BASE_W / 4}rem`
     )
     ), [isMobileView, isBig])
 
   const height = useMemo(() => (
     isMobileView ? (
-      `${BASE_W  * 1.3}vw`
+      `${BASE_W  * 1.3 }vw`
     ) : (
-      `${BASE_W * 1.3 / 2}rem`
+      `${BASE_W * 1.3 / 4}rem`
     )
   ), [isMobileView, isBig])
   return (
