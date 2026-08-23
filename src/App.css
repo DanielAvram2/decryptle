@@ -202,8 +202,8 @@
   width: 100%;
   height: 100%;
   text-align: center;
-  transition: transform 0.5s;
   transform-style: preserve-3d;
+  z-index: -1;
 }
 
 /* Do an horizontal flip when you move the mouse over the flip box container */
@@ -242,5 +242,7 @@
 .outer-glow{
     outline: none;
     border-color: yellow;
-    box-shadow: 0 0 15px yellow;
+    box-shadow: 0 0 1rem yellow;
+    transition: box-shadow 0.3s;
+    z-index: 1;
 }

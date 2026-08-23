@@ -43,7 +43,6 @@ const LetterBox: React.FC<LetterBoxProps> = ({
       setCandidateDecryptionLetter(displayLetter)
       return
     }
-    setCandidateDecryptionLetter(undefined)
   }, [
     selectedLetter, 
     ecryptionMapping,
@@ -57,6 +56,8 @@ const LetterBox: React.FC<LetterBoxProps> = ({
       minHeight={size}
       maxWidth={size}
       maxHeight={size}
+                onClick={selectLetter}
+
       
     >
       <Box
@@ -73,14 +74,13 @@ const LetterBox: React.FC<LetterBoxProps> = ({
           borderWidth="1px"
           marginTop='0.5rem'
           backgroundColor={BoxColors.encryptedLetter}
-          onClick={selectLetter}
           className={
             `${isPosSelected ? "outer-glow" : ""} ${mistakenLetter === letter ? "horizontal-shake" :"flip-card-front"}` }
           onAnimationEnd={clearMistakenLetter}
         >
           <Text
             fontFamily={`'block-blueprint', block-blueprint`}
-            fontSize={isEncrypted ? "1.5rem" : "1.5rem"}
+            fontSize={isEncrypted ? `calc(${fontSize} * 1.3)` : fontSize}
             fontWeight={isSelected ? "bold" : "normal"}
             color={isSelected || !isEncrypted ? "yellow" : "black"}
           >
