@@ -35,7 +35,7 @@ const ProgressBar: React.FC = () => {
       {(new Array(nrCompletedLetters).fill(null).map((_, index) => (
         <ProgressCell key={`completed-${index}`} isCompleted />
       )))}
-      { (new Array(nrLetters - nrCompletedLetters).fill(null).map((_, index) => (
+      { nrLetters - nrCompletedLetters > 0 && (new Array(nrLetters - nrCompletedLetters).fill(null).map((_, index) => (
         <ProgressCell key={`empty-${index}`} />
       )))}
     </Flex>

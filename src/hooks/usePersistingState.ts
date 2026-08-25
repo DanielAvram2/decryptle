@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import setItem, { getItem } from '../utils/localStorage';
 
 const usePersistingState = <T>(key: string, initialValue: T) => {
@@ -10,11 +10,12 @@ const usePersistingState = <T>(key: string, initialValue: T) => {
     setItem(key, state);
   }, [key, state]);
 
-  // useEffect(() => {
-  //   setItem(key, initialValue)
-  // }, [])
+  const resetState = useCallback(() => {
+    setState(initialValue)
+  }, [setItem, initialValue])
 
-  return [state, setState] as const;
+  return [state, setState, resetState] as const;
 }
+
 
 export default usePersistingState;

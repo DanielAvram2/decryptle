@@ -34,7 +34,7 @@ const GROUND_TRUTH_DECRYPTION: Partial<Record<Letter, Letter>> = {
   't': 'z',
 }
 
-const TEXT = "Le uk vbjrywj ewlnmoyb kxd, omyb kxd jmxdsi zyvjy vjalbn jzvwk cdyjolxbj."
+const TEXT = "Le uk vbjrywj ewlnmoyb kxd, omyb kxd jmxdsi zyvjy vjalbn jzvwk cdyjolxbj"
 
 
 type CryptoContextValue = {
@@ -64,20 +64,42 @@ export const CryptoProvider: React.FC<{ children?: ReactNode }> = ({
   children
 }) => {
 
-  const cypherText = useMemo(() => TEXT, [])
+  const { pressedKey, resetPressedKey } = useKeyPress()
+
+  const [cypherText, _setCypherText] = usePersistingState<string>("cypherText", "")
+
 
   const [selectedLetter, setSelectedLetter] = useState<Letter>()
   const [candidateDecryptionLetter, setCandidateDecryptionLetter] = useState<Letter>()
   const [mistakenLetter, setMistakenLetter] = useState<Letter>()
 
-  const [decryptionMapping, setDecryptionMapping] = usePersistingState<Partial<Record<Letter, Letter>>>("decryptionMapping", {})
-  const [ecryptionMapping, setEcryptionMapping] = usePersistingState<Partial<Record<Letter, Letter>>>("ecryptionMapping", {})
+  const [decryptionMapping, setDecryptionMapping, resetDecryptionMapping] = usePersistingState<Partial<Record<Letter, Letter>>>("decryptionMapping", {})
+  const [ecryptionMapping, setEcryptionMapping, resetEcryptionMapping] = usePersistingState<Partial<Record<Letter, Letter>>>("ecryptionMapping", {})
 
-  const [nrFailedTrials, setNrFailedTrials] = usePersistingState<number>("nrFailedTrials", 0)
-  const [nrCompletedLetters, setNrCompletedLetters] = usePersistingState<number>("nrCompletedLetters", 0)
-  const [trials, setTrials] = usePersistingState<Partial<Record<Letter, Letter[]>>>("trials", {})
+  const [nrFailedTrials, setNrFailedTrials, resetNrFailedTrials] = usePersistingState<number>("nrFailedTrials", 0)
+  const [nrCompletedLetters, setNrCompletedLetters, resetNrCompletedLetters] = usePersistingState<number>("nrCompletedLetters", 0)
+  const [trials, setTrials, resetTrials] = usePersistingState<Partial<Record<Letter, Letter[]>>>("trials", {})
 
-  const { pressedKey, resetPressedKey } = useKeyPress()
+  const resetLocalStorage = useCallback(() => {
+    resetDecryptionMapping()
+    resetEcryptionMapping()
+    resetNrFailedTrials()
+    resetNrCompletedLetters()
+    resetTrials()
+  }, [resetDecryptionMapping, resetEcryptionMapping, resetNrFailedTrials, resetNrCompletedLetters, resetTrials])
+  
+  const setCypherText = useCallback((newCypherText: string) => {
+    console.log(newCypherText)
+    console.log(cypherText)
+    if (newCypherText !== cypherText) {
+      resetLocalStorage()
+    }
+    _setCypherText(newCypherText)
+  }, [cypherText, _setCypherText, resetLocalStorage])
+
+  useEffect(() => {
+    setCypherText(TEXT)
+  }, [])
 
   const nrLetters = useMemo(() => {
     const letterChars = cypherText.split("").filter(char => isLetter(char)).map(char => char.toLowerCase())
