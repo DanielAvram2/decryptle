@@ -4,6 +4,7 @@ import useCrypto from "../../hooks/useCrypto";
 import { useCallback, useEffect, useMemo } from "react";
 import { BoxColors } from "../../utils/constants";
 import useGameMechanics from "../../hooks/useGameMechanics";
+import useIsMobileView from "../../hooks/useIsMobileView";
 
 interface LetterBoxProps {
   letter: Letter,
@@ -27,6 +28,7 @@ const LetterBox: React.FC<LetterBoxProps> = ({
     ecryptionMapping, decryptionMapping, mistakenLetter, clearMistakenLetter 
   } = useCrypto()
   const { selectedPosition, setSelectedPosition } = useGameMechanics()
+  const isMobileView = useIsMobileView()
 
   const isSelected = useMemo(() => selectedLetter == letter, [selectedLetter, letter])
   const displayLetter = useMemo(() => isEncrypted ? letter : decryptionMapping[letter]!, [isEncrypted, decryptionMapping, letter])
@@ -51,12 +53,13 @@ const LetterBox: React.FC<LetterBoxProps> = ({
 
   return (
     <Box
-      className={`flip-card${!isEncrypted ? "-flip" : ""}`}
+      className={`unselectable flip-card${!isEncrypted ? "-flip" : ""}`}
       minWidth={size}
       minHeight={size}
       maxWidth={size}
       maxHeight={size}
-                onClick={selectLetter}
+      onClick={selectLetter}
+
 
       
     >
@@ -75,7 +78,7 @@ const LetterBox: React.FC<LetterBoxProps> = ({
           marginTop='0.5rem'
           backgroundColor={BoxColors.encryptedLetter}
           className={
-            `${isPosSelected ? "outer-glow" : ""} ${mistakenLetter === letter ? "horizontal-shake" :"flip-card-front"}` }
+            `${isPosSelected && !isMobileView ? "outer-glow" : ""} ${mistakenLetter === letter ? "horizontal-shake" :"flip-card-front"}` }
           onAnimationEnd={clearMistakenLetter}
         >
           <Text
@@ -98,7 +101,7 @@ const LetterBox: React.FC<LetterBoxProps> = ({
           marginTop='0.5rem'
           backgroundColor={BoxColors.decryptedLetter}
           onClick={selectLetter}
-          className={`${isPosSelected ? "outer-glow" : ""} flip-card-back`}
+          className={`${isPosSelected && !isMobileView ? "outer-glow" : ""} flip-card-back`}
         >
           <Text
             fontFamily={`'courier', courier`}

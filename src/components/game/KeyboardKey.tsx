@@ -49,6 +49,7 @@ const KeyboardKey: React.FC<KeyboardKeyProps> = ({
       fontSize="1.5rem"
       borderRadius="0.3rem"
       onClick={onClick}
+      className="unselectable"
     >
       {children}
     </Flex>

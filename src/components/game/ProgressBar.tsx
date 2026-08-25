@@ -13,7 +13,7 @@ const ProgressBar: React.FC = () => {
     isMobileView ? (
       `calc(100vw / ${26})`
     ) : (
-      `calc(80vh / ${26})`
+      `calc(80vw / ${26})`
     )
   ), [isMobileView])
 

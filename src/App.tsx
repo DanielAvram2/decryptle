@@ -6,6 +6,7 @@ import { IsMobileViewProvider } from './hooks/useIsMobileView';
 import GameLayout from './components/layout/GameLayout';
 import { KeyPressProvider } from './hooks/useKeyPress';
 import { GameMechanicsProvider } from "./hooks/useGameMechanics";
+import { GameStateProvider } from "./hooks/useGameState";
 
 
 const App: React.FC = () => {
@@ -16,9 +17,11 @@ const App: React.FC = () => {
       <IsMobileViewProvider>
         <KeyPressProvider>
           <CryptoProvider>
-            <GameMechanicsProvider>
-              <GameLayout />
-            </GameMechanicsProvider>
+            <GameStateProvider>
+              <GameMechanicsProvider>
+                <GameLayout />
+              </GameMechanicsProvider>
+            </GameStateProvider>
           </CryptoProvider>
           <Toaster />
           {/* <ResultModal onClose={() => setIsOpen(false)} isOpen={isOpen}/> */}

@@ -26,6 +26,7 @@ const CharBox: React.FC<CharBoxProps> = ({
     borderWidth='1px'
     marginTop='0.5rem'
     backgroundColor={color}
+    className="unselectable"
   >
     <Text
       fontSize={fontSize}
