@@ -8,8 +8,8 @@ import { KeyPressProvider } from './hooks/useKeyPress';
 import { GameMechanicsProvider } from "./hooks/useGameMechanics";
 import { GameStateProvider } from "./hooks/useGameState";
 
-
 const App: React.FC = () => {
+ 
   return (
     <Provider
       enableSystem={false}
@@ -24,7 +24,6 @@ const App: React.FC = () => {
             </GameStateProvider>
           </CryptoProvider>
           <Toaster />
-          {/* <ResultModal onClose={() => setIsOpen(false)} isOpen={isOpen}/> */}
         </KeyPressProvider>
       </IsMobileViewProvider>
     </Provider>

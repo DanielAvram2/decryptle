@@ -6,7 +6,8 @@ import LetterGrid from "../game/LetterGrid";
 import GameCounter from "../game/GameCounter";
 import MappingDisplay from "../game/MappingDisplay";
 import Keyboard from "../game/Keyboard";
-
+import HintText from "../game/HintText";
+import ResultModal from "../modals/ResultModal";
 
  
 const GameLayout: React.FC = () => {
@@ -18,8 +19,9 @@ const GameLayout: React.FC = () => {
       "80%"
     )
   ), [isMobileView])
-
+ 
   return (	
+    <>
     <Flex
       minH="100svh"
       justifyContent="center"
@@ -44,6 +46,7 @@ const GameLayout: React.FC = () => {
               justifyContent="center"
               flexGrow="1"
             >
+              <HintText />
 
               <ProgressBar />
               <LetterGrid />
@@ -59,6 +62,8 @@ const GameLayout: React.FC = () => {
             </Flex>
           </Flex>
     </Flex>
+    <ResultModal/>
+    </>
 
   );
 }

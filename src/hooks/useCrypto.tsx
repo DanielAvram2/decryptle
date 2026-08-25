@@ -6,35 +6,38 @@ import usePersistingState from "./usePersistingState"
 import useKeyPress from "./useKeyPress"
 
 const GROUND_TRUTH_DECRYPTION: Partial<Record<Letter, Letter>> = {
-  'v': 'a',
-  'f': 'b',
-  'z': 'c',
-  'i': 'd',
-  'y': 'e',
-  'e': 'f',
-  'n': 'g',
-  'm': 'h',
-  'l': 'i',
-  'p': 'j',
-  'a': 'k',
-  's': 'l',
-  'u': 'm',
-  'b': 'n',
-  'x': 'o',
-  'q': 'p',
-  'c': 'q',
-  'w': 'r',
-  'j': 's',
-  'o': 't',
-  'd': 'u',
-  'g': 'v',
-  'r': 'w',
-  'h': 'x',
-  'k': 'y',
-  't': 'z',
+'y' : 'a',
+'j' : 'b',
+'w' : 'c',
+'s' : 'd',
+'n' : 'e',
+'z' : 'f',
+'h' : 'g',
+'v' : 'h',
+'k' : 'i',
+'u' : 'j',
+'l' : 'k',
+'p' : 'l',
+'i' : 'm',
+'m' : 'n',
+'r' : 'o',
+'b' : 'p',
+'t' : 'q',
+'f' : 'r',
+'o' : 's',
+'e' : 't',
+'c' : 'u',
+'g' : 'v',
+'x' : 'w',
+'a' : 'x',
+'q' : 'y',
+'d' : 'z',
 }
 
-const TEXT = "Le uk vbjrywj ewlnmoyb kxd, omyb kxd jmxdsi zyvjy vjalbn jzvwk cdyjolxbj"
+
+const TEXT = "Qrc icoe hkgn qrcfonpz er evn oerfi, hkgn qrcfonpz er Bronksrm. Yms eyln qrcf bcmkovinme."
+
+const TEXT_HINT = `Calypso on how to get home`
 
 
 type CryptoContextValue = {
@@ -52,7 +55,8 @@ type CryptoContextValue = {
   nrCompletedLetters: number,
   nrLetters: number,
   mistakenLetter?: Letter,
-  clearMistakenLetter: () => void
+  clearMistakenLetter: () => void,
+  textHint: string
 }
 
 
@@ -100,6 +104,8 @@ export const CryptoProvider: React.FC<{ children?: ReactNode }> = ({
   useEffect(() => {
     setCypherText(TEXT)
   }, [])
+
+  const textHint = useMemo(() => TEXT_HINT, [])
 
   const nrLetters = useMemo(() => {
     const letterChars = cypherText.split("").filter(char => isLetter(char)).map(char => char.toLowerCase())
@@ -211,7 +217,8 @@ export const CryptoProvider: React.FC<{ children?: ReactNode }> = ({
         nrLetters,
         nrCompletedLetters,
         mistakenLetter,
-        clearMistakenLetter
+        clearMistakenLetter,
+        textHint
       }}
     >
       {children}
