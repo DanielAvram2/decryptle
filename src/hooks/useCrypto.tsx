@@ -35,9 +35,9 @@ const GROUND_TRUTH_DECRYPTION: Partial<Record<Letter, Letter>> = {
 }
 
 
-const TEXT = "Qrc icoe hkgn qrcfonpz er evn oerfi, hkgn qrcfonpz er Bronksrm. Yms eyln qrcf bcmkovinme."
+const TEXT = `Gpvd rpmyg uvg wmnx m wmlptux tu gpx ytnxuxrr vj m pdwmu wtui.`
 
-const TEXT_HINT = `Calypso on how to get home`
+const TEXT_HINT = `Dune hits close to home`
 
 
 type CryptoContextValue = {

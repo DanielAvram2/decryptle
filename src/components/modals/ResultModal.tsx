@@ -10,11 +10,6 @@ const ResultModal: React.FC = () => {
   const [_isOpen, _setIsOpen] = useState(isFinished)
   return (	
     <Dialog.Root open={_isOpen} onOpenChange={() => _setIsOpen(false)} size="cover">
-      <Dialog.Trigger asChild>
-        <Button variant="outline" size="sm">
-          Open Dialog
-        </Button>
-      </Dialog.Trigger>
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>

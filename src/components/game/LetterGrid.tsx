@@ -35,7 +35,7 @@ const LetterGrid: React.FC = () => {
   }, [cypherText])
   const boxSize = useMemo(() => (
     isMobileView ?
-      `${Math.floor(100 / longestWordLength) - 2}svw`
+      `${Math.min(Math.floor(100 / longestWordLength) - 2, 7)}svw`
     :
       `${Math.floor(60 / longestWordLength) - 2}vw`
   ), [longestWordLength, isMobileView])
