@@ -35,7 +35,7 @@ const GROUND_TRUTH_DECRYPTION: Partial<Record<Letter, Letter>> = {
 }
 
 
-const TEXT = `Gpvd rpmyg uvg wmnx m wmlptux tu gpx ytnxuxrr vj m pdwmu wtui.`
+const TEXT = `Gpvd rpmyg uvg wmnx m wmlptux tu gpx ytnxuxrr vj m pdwmu wtui`
 
 const TEXT_HINT = `Dune hits close to home`
 
