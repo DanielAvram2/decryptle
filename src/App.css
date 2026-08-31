@@ -256,3 +256,12 @@
     -ms-user-select: none;
     user-select: none;
 }
+
+.bounce {
+  animation: bounce 0.5s ease;
+}
+@keyframes bounce {
+	0%,  100% {transform: translateY(0);}
+	40% {transform: translateY(-10px);}
+	80% {transform: translateY(5px);}
+}

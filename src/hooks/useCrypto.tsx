@@ -6,38 +6,38 @@ import usePersistingState from "./usePersistingState"
 import useKeyPress from "./useKeyPress"
 
 const GROUND_TRUTH_DECRYPTION: Partial<Record<Letter, Letter>> = {
-'m' : 'a',
-'k' : 'b',
-'l' : 'c',
-'i' : 'd',
-'x' : 'e',
-'j' : 'f',
-'z' : 'g',
-'p' : 'h',
-'t' : 'i',
-'a' : 'j',
-'n' : 'k',
-'y' : 'l',
-'w' : 'm',
-'u' : 'n',
-'v' : 'o',
-'o' : 'p',
-'c' : 'q',
-'e' : 'r',
+'k' : 'a',
+'p' : 'b',
+'g' : 'c',
+'s' : 'd',
+'i' : 'e',
+'t' : 'f',
+'j' : 'g',
+'z' : 'h',
+'o' : 'i',
+'u' : 'j',
+'a' : 'k',
+'q' : 'l',
+'d' : 'm',
+'c' : 'n',
+'f' : 'o',
+'y' : 'p',
+'e' : 'q',
+'m' : 'r',
 'r' : 's',
-'g' : 't',
-'d' : 'u',
-'f' : 'v',
+'x' : 't',
+'h' : 'u',
+'l' : 'v',
 'b' : 'w',
-'h' : 'x',
-'q' : 'y',
-'s' : 'z',
+'n' : 'x',
+'v' : 'y',
+'w' : 'z',
 }
 
 
-const TEXT = `Gpvd rpmyg uvg wmnx m wmlptux tu gpx ytnxuxrr vj m pdwmu wtui.`
+const TEXT = `Qoti or qoai k pfn ft gzfgfqkxir, vfh cilim acfb bzkx vfh'mi jfcck jix.`
 
-const TEXT_HINT = `Dune hits close to home`
+const TEXT_HINT = `"My momma always said..."`
 
 
 type CryptoContextValue = {

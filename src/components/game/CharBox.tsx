@@ -1,12 +1,14 @@
 import { Flex, Text } from "@chakra-ui/react";
-import { BoxColors } from "../../utils/constants";
+import { ANIMATION_DELAY, ANIMATION_WAIT, BoxColors } from "../../utils/constants";
+import useGameState from "../../hooks/useGameState";
 
 interface CharBoxProps {
   char: string
   size?: string,
   color?: string,
   fontSize?: string,
-  isEncrypted?: boolean
+  isEncrypted?: boolean,
+  position?: number
 }
 
 const CharBox: React.FC<CharBoxProps> = ({
@@ -14,8 +16,10 @@ const CharBox: React.FC<CharBoxProps> = ({
   size = '2rem',
   color = BoxColors.miscChar,
   fontSize = `calc(${size} * 0.5)`,
-  isEncrypted = false
+  isEncrypted = false,
+  position
 }) => {
+  const {isFinished, isWon} = useGameState()
   return (<Flex
     minWidth={size}
     minHeight={size}
@@ -26,7 +30,8 @@ const CharBox: React.FC<CharBoxProps> = ({
     borderWidth='1px'
     marginTop='0.5rem'
     backgroundColor={color}
-    className="unselectable"
+    className={`${isFinished && isWon  && position ? "bounce" : ""} unselectable`}
+    animationDelay={`${ANIMATION_WAIT + (position ?? 0) * ANIMATION_DELAY}s`}
   >
     <Text
       fontSize={fontSize}

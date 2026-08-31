@@ -2,9 +2,10 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import type { Letter } from "../../utils/types";
 import useCrypto from "../../hooks/useCrypto";
 import { useCallback, useEffect, useMemo } from "react";
-import { BoxColors } from "../../utils/constants";
+import { ANIMATION_DELAY, ANIMATION_WAIT, BoxColors } from "../../utils/constants";
 import useGameMechanics from "../../hooks/useGameMechanics";
 import useIsMobileView from "../../hooks/useIsMobileView";
+import useGameState from "../../hooks/useGameState";
 
 interface LetterBoxProps {
   letter: Letter,
@@ -12,7 +13,7 @@ interface LetterBoxProps {
   isUpperCase?: boolean,
   size?: string,
   fontSize?: string,
-  position?: number
+  position?: number,
 }
 
 const LetterBox: React.FC<LetterBoxProps> = ({
@@ -21,15 +22,16 @@ const LetterBox: React.FC<LetterBoxProps> = ({
   isUpperCase = false,
   size = "2rem",
   fontSize = `calc(${size} * 0.5)`,
-  position = -1
+  position = -1,
 }) => {
   const { 
     selectedLetter, setSelectedLetter, setCandidateDecryptionLetter, 
     ecryptionMapping, decryptionMapping, mistakenLetter, clearMistakenLetter 
   } = useCrypto()
   const { selectedPosition, setSelectedPosition } = useGameMechanics()
+  const {isWon, isFinished} = useGameState()
   const isMobileView = useIsMobileView()
-
+  
   const isSelected = useMemo(() => selectedLetter == letter, [selectedLetter, letter])
   const displayLetter = useMemo(() => isEncrypted ? letter : decryptionMapping[letter]!, [isEncrypted, decryptionMapping, letter])
   const isPosSelected = useMemo(() => position === selectedPosition, [selectedPosition, position])
@@ -53,12 +55,13 @@ const LetterBox: React.FC<LetterBoxProps> = ({
 
   return (
     <Box
-      className={`unselectable flip-card${!isEncrypted ? "-flip" : ""}`}
+      className={`${isFinished && isWon ? "bounce" : ""} unselectable flip-card${!isEncrypted ? "-flip" : ""}`}
       minWidth={size}
       minHeight={size}
       maxWidth={size}
       maxHeight={size}
       onClick={selectLetter}
+      animationDelay={`${ANIMATION_WAIT + position * ANIMATION_DELAY}s`}
 
 
       

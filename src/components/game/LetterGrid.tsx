@@ -35,9 +35,9 @@ const LetterGrid: React.FC = () => {
   }, [cypherText])
   const boxSize = useMemo(() => (
     isMobileView ?
-      `${Math.min(Math.floor(100 / longestWordLength) - 2, 7)}svw`
+      `min(2rem, ${Math.floor(100 / longestWordLength) - 2}svw)`
     :
-      `${Math.floor(60 / longestWordLength) - 2}vw`
+      `min(3rem, ${Math.floor(80 / longestWordLength) - 2}vw)`
   ), [longestWordLength, isMobileView])
   return (
     <Flex
@@ -56,7 +56,7 @@ const LetterGrid: React.FC = () => {
               {word.split('').map((character, characterIndex) => {
                 if (!isLetter(character)) {
                   return (
-                    <CharBox key={`char-${wordIndex}-${characterIndex}`} char={character} size={boxSize} />
+                    <CharBox key={`char-${wordIndex}-${characterIndex}`} char={character} size={boxSize} position={getLetterPos(wordIndex, characterIndex)} />
                   )
                 }
                 const letter = character.toLowerCase() as Letter
@@ -73,7 +73,7 @@ const LetterGrid: React.FC = () => {
                 )
 
               })}
-              {wordIndex !== cypherText.split(" ").length - 1 && <CharBox char={" "} size={boxSize} />}
+              {wordIndex !== cypherText.split(" ").length - 1 && <CharBox char={" "} size={boxSize} position={getLetterPos(wordIndex + 1, 0)} />}
             </Flex>
           ))}
         </Flex>

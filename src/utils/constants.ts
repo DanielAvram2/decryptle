@@ -8,3 +8,6 @@ export const BoxColors = {
     guessed: "#61b973"
   } 
 }
+
+export const ANIMATION_WAIT = 0.5
+export const ANIMATION_DELAY = 0.03

@@ -14,7 +14,7 @@ export const IsMobileViewProvider: React.FC<{
   const [isMobileView, setIsMobileView] = useState<boolean>(true);
 
   const handleWindowSizeChange = () => {
-    setIsMobileView(window.innerWidth <= 430);
+    setIsMobileView(window.innerWidth <= 600);
   }
   useEffect(() => {
     handleWindowSizeChange();

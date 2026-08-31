@@ -1,13 +1,23 @@
 import { Button, CloseButton, Dialog, Portal } from "@chakra-ui/react"
 import useCrypto from "../../hooks/useCrypto";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useGameState from "../../hooks/useGameState";
+import { ANIMATION_DELAY, ANIMATION_WAIT } from "../../utils/constants";
 
 
 const ResultModal: React.FC = () => {
-  const {nrFailedTrials} = useCrypto()
+  const {nrFailedTrials, cypherText} = useCrypto()
   const {isFinished, isWon} = useGameState()
-  const [_isOpen, _setIsOpen] = useState(isFinished)
+  const [_isOpen, _setIsOpen] = useState(false)
+  
+  useEffect(() => {
+    // wait for the letter grid animation to finish
+    const timeoutId = setTimeout(() => {
+      _setIsOpen(isFinished)
+    }, (ANIMATION_WAIT * 2 + cypherText.length * ANIMATION_DELAY) * 1000);
+    return () => clearTimeout(timeoutId);
+  }, [isFinished])
+
   return (	
     <Dialog.Root open={_isOpen} onOpenChange={() => _setIsOpen(false)} size="cover">
       <Portal>
